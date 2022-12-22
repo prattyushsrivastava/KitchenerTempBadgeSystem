@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Layer.Services;
+using Data.Access.Layer.Models;
+using Microsoft.AspNetCore.Mvc;
 using Presentation.Layer.Models;
 using System.Diagnostics;
 
@@ -6,11 +8,11 @@ namespace Presentation.Layer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        //private readonly ILogger<HomeController> _logger;
+        private readonly IEmployeeService _empService;
+        public HomeController(IEmployeeService empService)
         {
-            _logger = logger;
+            _empService=empService;
         }
 
         public IActionResult Index()
@@ -27,6 +29,13 @@ namespace Presentation.Layer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult show(string fn, string ln)
+        {
+            _empService.GetEmp(fn,ln);
+
+            return View();
         }
 
         public IActionResult SignIn()

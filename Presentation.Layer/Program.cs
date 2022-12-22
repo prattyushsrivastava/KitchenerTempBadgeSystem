@@ -1,7 +1,19 @@
+using Business.Layer.Services;
+using Data.Access.Layer.Models;
+using Data.Access.Layer.Repository;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<KitchenerTempBadgeContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+builder.Services.AddScoped(typeof(IGenricRepository), typeof(GenricRepository));
+
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 
