@@ -22,11 +22,8 @@ namespace Data.Access.Layer.Repository
 
         public IEnumerable<Employee> GetEmployees(string fname, string lname)
         {
-           
-            
-            return  _dbContext.Employees.Where(p => (p.FirstName == fname && p.LastName == lname)).ToList();
 
-           
+            return _dbContext.Employees.Where(p => (p.FirstName.ToLower() == fname.ToLower() && p.LastName.ToLower() == lname.ToLower())).ToList();
         }
     }
 }

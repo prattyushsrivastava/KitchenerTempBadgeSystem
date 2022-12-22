@@ -33,9 +33,7 @@ namespace Presentation.Layer.Controllers
 
         public IActionResult show(string fn, string ln)
         {
-            _empService.GetEmp(fn,ln);
-
-            return View();
+            return View(_empService.GetEmp(fn, ln));
         }
 
         public IActionResult SignIn()

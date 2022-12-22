@@ -50,9 +50,7 @@
                 @Html.DisplayFor(modelItem => item.Empcode)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a asp-action="Index" class="btn btn-link text-primary one" onclick="return confirm('Are you sure you want to signIn?')"> This is me!! </a>
             </td>
         </tr>
 }
