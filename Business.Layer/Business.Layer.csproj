@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Data.Access.Layer\Data.Access.Layer.csproj" />
+  </ItemGroup>
+
 </Project>
