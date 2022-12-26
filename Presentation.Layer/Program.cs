@@ -1,6 +1,7 @@
 using Business.Layer.Services;
 using Data.Access.Layer.Models;
 using Data.Access.Layer.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<KitchenerTempBadgeContext>(options => {
 builder.Services.AddScoped(typeof(IGenricRepository), typeof(GenricRepository));
 
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+/*builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDB>();*/
+builder.Services.AddScoped<IGuardService, GuardService>();
 
 var app = builder.Build();
 

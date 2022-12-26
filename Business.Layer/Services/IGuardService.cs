@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Access.Layer.Repository
+namespace Business.Layer.Services
 {
-    public interface IGenricRepository
+    public interface IGuardService
     {
-        public IEnumerable<Employee> GetEmployees(string fname, string lname);
         public IEnumerable<Gaurd> GetBadges(string fname, string lname, int ecode);
+
     }
 }

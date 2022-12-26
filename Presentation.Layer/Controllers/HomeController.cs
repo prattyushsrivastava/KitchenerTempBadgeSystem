@@ -10,9 +10,11 @@ namespace Presentation.Layer.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
         private readonly IEmployeeService _empService;
-        public HomeController(IEmployeeService empService)
+        private readonly IGuardService _guardService;
+        public HomeController(IEmployeeService empService, IGuardService guardService)
         {
-            _empService=empService;
+            _empService = empService;
+            _guardService = guardService;
         }
 
         public IActionResult Index()
@@ -39,6 +41,13 @@ namespace Presentation.Layer.Controllers
         public IActionResult SignIn()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Badge(string fn, string ln, int ecode)
+        {
+
+            return View(_guardService.GetBadges(fn, ln, ecode));
         }
     }
 }

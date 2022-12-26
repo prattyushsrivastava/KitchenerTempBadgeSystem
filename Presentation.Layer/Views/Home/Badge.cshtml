@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Data.Access.Layer.Models.Employee>
+﻿@model IEnumerable<Data.Access.Layer.Models.Gaurd>
 
 @{
-    ViewData["Title"] = "show";
+    ViewData["Title"] = "Badge";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>show</h1>
+<h1>Badge</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -23,10 +23,16 @@
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhotoUrl)
+                @Html.DisplayNameFor(model => model.TempBadge)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Empcode)
+                @Html.DisplayNameFor(model => model.SignIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SignOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpCode)
             </th>
             <th></th>
         </tr>
@@ -44,13 +50,20 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhotoUrl)
+                @Html.DisplayFor(modelItem => item.TempBadge)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Empcode)
+                @Html.DisplayFor(modelItem => item.SignIn)
             </td>
             <td>
-                    <a href="/Home/Badge?fn=@item.FirstName&ln=@item.LastName&ecode=@item.Empcode" class="btn btn-link text-primary one" onclick="return confirm('Are you sure you want to signIn?')"> This is me!! </a>
+                @Html.DisplayFor(modelItem => item.SignOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpCode)
+            </td>
+            <td>
+                @Html.ActionLink("SignOut", "Sign Out", new { /* id=item.PrimaryKey */ }) |
+            
             </td>
         </tr>
 }
