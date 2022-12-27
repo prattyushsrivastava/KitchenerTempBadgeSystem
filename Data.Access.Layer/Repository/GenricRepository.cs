@@ -20,7 +20,7 @@ namespace Data.Access.Layer.Repository
             _dbContext = dbcontext;
         }
 
-        public IEnumerable<Gaurd> GetBadges(string fname, string lname, int ecode)
+        public IEnumerable<Gaurd> SignInBadge(string fname, string lname, int ecode)
         {
             const string alphanumericCharacters =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
@@ -48,5 +48,62 @@ namespace Data.Access.Layer.Repository
 
             return _dbContext.Employees.Where(p => (p.FirstName.ToLower() == fname.ToLower() && p.LastName.ToLower() == lname.ToLower())).ToList();
         }
+
+        public IEnumerable<Gaurd> SignOutBadge(int Id)
+        {
+            var f = _dbContext.Gaurds.FirstOrDefault(x => x.Id == Id);
+            f.SignOut = DateTime.Now;
+
+            _dbContext.SaveChanges();
+            return _dbContext.Gaurds.ToList();
+        }
+
+        public IEnumerable<Gaurd> GetBadges()
+        {
+            return _dbContext.Gaurds.ToList();
+        }
+
+        //================= changes ==================
+
+        public IEnumerable<MultiModelPage> GetMultiModels()
+        {
+            var data = (from p in _dbContext.Employees
+                        join g in _dbContext.Gaurds on p.Empcode equals g.EmpCode
+                        select new MultiModelPage
+                        {
+                            PhotoUrl = p.PhotoUrl,
+                            Name = p.FirstName + " " + p.LastName,
+                            TempBadge = g.TempBadge,
+                            AssignTime = (int)(g.SignOut - g.SignIn).TotalSeconds
+                        }) ;
+            return data.ToList();
+        }
+
+        public IEnumerable<Report> GetReports()
+        {
+            var data = (from p in _dbContext.Employees
+                        join g in _dbContext.Gaurds on p.Empcode equals g.EmpCode
+                        select new Report
+                        { 
+                            Name = p.FirstName + " " + p.LastName,
+                            TempBadge = g.TempBadge,
+                            SignIn = g.SignIn,
+                            SignOut = g.SignOut,
+                            AssignTime= (int)(g.SignOut - g.SignIn).TotalSeconds                 
+                        });
+            return data.ToList();
+        }
+
+        public IEnumerable<Gaurd> SignOutPage(string TempBadge)
+        {
+            var f = _dbContext.Gaurds.FirstOrDefault(x => x.TempBadge == TempBadge);
+            f.SignOut = DateTime.Now;
+
+            _dbContext.SaveChanges();
+            return _dbContext.Gaurds;
+        }
+
+        
+
     }
 }

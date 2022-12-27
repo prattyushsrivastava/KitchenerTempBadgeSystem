@@ -9,7 +9,14 @@ namespace Business.Layer.Services
 {
     public interface IGuardService
     {
-        public IEnumerable<Gaurd> GetBadges(string fname, string lname, int ecode);
+        public IEnumerable<Gaurd> SignInBadge(string fname, string lname, int ecode);
+        public IEnumerable<Gaurd> SignOutBadge(int Id);
+        public IEnumerable<Gaurd> GetBadges();
 
+        //============ changes ===========
+        public IEnumerable<Gaurd> SignOutPage(string TempBadge);
+
+        public IEnumerable<MultiModelPage> GetMultiModels();
+        public IEnumerable<Report> GetReports();
     }
 }

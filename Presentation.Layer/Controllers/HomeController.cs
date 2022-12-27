@@ -1,5 +1,6 @@
 ﻿using Business.Layer.Services;
 using Data.Access.Layer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Layer.Models;
 using System.Diagnostics;
@@ -47,7 +48,54 @@ namespace Presentation.Layer.Controllers
         public IActionResult Badge(string fn, string ln, int ecode)
         {
 
-            return View(_guardService.GetBadges(fn, ln, ecode));
+            return View(_guardService.SignInBadge(fn, ln, ecode));
         }
+
+        [HttpGet]
+        public IActionResult BadgeOut(int id)
+        {
+            _guardService.SignOutBadge(id);
+            return RedirectToAction(nameof(GetBadges));
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetBadges()
+        {
+            return View(_guardService.GetBadges());
+        }
+
+        //================== changes ============
+        [HttpPost]
+        public IActionResult SignOutPage(string TempBadge)
+        {
+           _guardService.SignOutPage(TempBadge);
+            return RedirectToAction("Index","Home");
+            
+        }
+
+        [HttpGet]
+        public IActionResult SignOutPage()
+        {
+            return View();
+
+        }
+
+        public IActionResult BadgeOutPage()
+        {
+            return View(_guardService.GetMultiModels());
+        }
+
+        public IActionResult BadgeReportPage()
+        {
+            return View(_guardService.GetReports());
+        }
+
+        /*[HttpGet]
+        public IActionResult SignOut(int id)
+        {
+            _guardService.SignOutBadge(id);
+            return RedirectToAction(nameof(SignOut));
+        }*/
     }
 }

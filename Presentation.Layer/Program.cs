@@ -12,10 +12,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<KitchenerTempBadgeContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<KitchenerTempBadgeContext>();
 builder.Services.AddScoped(typeof(IGenricRepository), typeof(GenricRepository));
 
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-/*builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDB>();*/
+
 builder.Services.AddScoped<IGuardService, GuardService>();
 
 var app = builder.Build();
@@ -33,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

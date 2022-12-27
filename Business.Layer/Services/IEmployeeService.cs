@@ -9,5 +9,6 @@ namespace Business.Layer.Services
     public interface IEmployeeService
     {
         public IEnumerable<Employee> GetEmp(string fname, string lname);
+        //public IEnumerable<Employee> GetEmploy();
     }
 }

@@ -23,5 +23,9 @@ namespace Business.Layer.Services
         {
             return _repo.GetEmployees(fname,lname);
         }
+        /*public IEnumerable<Employee> GetEmploy()
+        {
+            return _repo.GetEmp();
+        }*/
     }
 }
